@@ -1,10 +1,7 @@
 import Axios from 'axios'
 
 export const axios = Axios.create({
-  baseURL:
-    process.env.NODE_ENV === 'production'
-      ? 'https://fakestoreapi.com/'
-      : 'https://fakestoreapi.com/'
+  baseURL: process.env.NEXT_PUBLIC_API_LINK
 })
 
 axios.interceptors.request.use(
