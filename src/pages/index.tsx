@@ -1,3 +1,6 @@
+import Container from '@/components/container/Container'
+import Filter from '@/modules/products/Filter'
+import ProductList from '@/modules/products/ProductList'
 import Head from 'next/head'
 
 export default function Home() {
@@ -9,8 +12,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="h-[50vh]">
-        <h1 className="text-red-500">Coming Soon</h1>
+      <main>
+        <Container>
+          <div className="flex space-x-8">
+            <Filter />
+            <ProductList />
+          </div>
+        </Container>
       </main>
     </>
   )
