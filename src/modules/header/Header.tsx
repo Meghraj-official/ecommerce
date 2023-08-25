@@ -25,7 +25,7 @@ const Header = () => {
             </Link>
           </div>
           <div>
-            <ul className="flex items-center space-x-6">
+            <ul className="hidden lg:flex items-center space-x-6">
               {headerNavigations?.map((item) => (
                 <li key={item?.title}>
                   <Link
@@ -39,7 +39,9 @@ const Header = () => {
             </ul>
           </div>
           <div className="flex space-x-4 items-center">
-            <SearchIcon />
+            <div className="hidden lg:block">
+              <SearchIcon />
+            </div>
             <Link href="/cart">
               <div className="relative">
                 {cart?.length > 0 && (
@@ -50,7 +52,9 @@ const Header = () => {
                 <BagIcon />
               </div>
             </Link>
-            <HeartIcon />
+            <div className="hidden lg:block">
+              <HeartIcon />
+            </div>
             <Image
               src="/images/profile.png"
               className="rounded-full"

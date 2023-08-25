@@ -10,7 +10,7 @@ const Footer = () => {
     <footer className="bg-primary-800 text-white">
       <Container>
         <div className="flex flex-col">
-          <div className="border-b border-opacity-20 border-white pb-8 grid grid-cols-4 gap-5 pt-20">
+          <div className="border-b border-opacity-20 border-white pb-8 grid md:grid-cols-2 lg:grid-cols-4 gap-5 pt-20">
             <FooterColumn columnTitle="navigate" items={navigate} />
             <FooterColumn columnTitle="shop" items={shop} />
             <FooterColumn columnTitle="explore" items={explore} />
