@@ -2,6 +2,7 @@ import Container from '@/components/container/Container'
 import { CartContext, CartContextType } from '@/context/CartContext'
 import CartCard from '@/modules/cart/CartCard'
 import { CartType } from '@/typings/cart'
+import Link from 'next/link'
 import React, { useContext } from 'react'
 import { toast } from 'react-toastify'
 
@@ -17,8 +18,15 @@ const Cart = () => {
     <div>
       <Container>
         <h2 className="text-3xl font-bold">Shopping Bag</h2>
-        {cart?.length === 0 ? (
-          <div className="text-center text-lg">Your cart is empty</div>
+        {cart?.length !== 0 ? (
+          <div className="h-[70vh] flex flex-col items-center justify-center w-full text-4xl font-bold space-y-6 ">
+            <div> Your cart is empty</div>
+            <Link href="/">
+              <div className="bg-primary-800 text-white cursor-pointer text-sm px-6 py-2 rounded-full">
+                Continue Shopping
+              </div>
+            </Link>
+          </div>
         ) : (
           <>
             <table className="w-full table-fixed  mt-4">

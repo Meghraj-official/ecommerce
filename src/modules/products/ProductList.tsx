@@ -4,65 +4,93 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import ProductCard from './ProductCard'
+import Pagination from '@/components/pagination/Pagination'
+import Loader from '@/components/loader/Loader'
+
+const pageLimit = 12
 
 const ProductList = () => {
   const router = useRouter()
-
-  const [page] = React.useState(1)
+  const [total, setTotal] = useState(0)
+  const [page, setPage] = useState(0)
 
   const [products, setProducts] = useState<ProductType[] | []>([])
 
-  const { isLoading } = useQuery(
-    'products',
+  const { isLoading, refetch: productRefetch } = useQuery(
+    ['products', page],
     () =>
       API.products.getAllProducts({
-        skip: (page - 1) * 10,
-        limit: 10
+        skip: page * pageLimit,
+        limit: pageLimit
       }),
     {
       onSuccess: (data: ProductsResponseType) => {
-        setProducts(data.products)
+        setProducts(data?.products)
+        setTotal(data?.total)
       }
     }
   )
-  const { refetch, isRefetching } = useQuery(
-    'productsByCategory',
+  const { refetch: categoryRefetch, isRefetching } = useQuery(
+    ['productsByCategory', page, router.query.category],
     () =>
       API.products.getAllProductsByCategory({
-        skip: (page - 1) * 10,
-        limit: 10,
+        skip: page * pageLimit,
+        limit: pageLimit,
         category: router.query.category as string
       }),
     {
       enabled: router.query.category ? true : false,
       onSuccess: (data: ProductsResponseType) => {
-        setProducts(data.products)
+        setProducts(data?.products)
+        setTotal(data?.total)
       }
     }
   )
 
   useEffect(() => {
-    if (router.query.category) {
-      refetch()
+    if (router?.query?.category) {
+      categoryRefetch()
+      setPage(0)
     }
-  }, [refetch, router.query.category])
+  }, [categoryRefetch, router?.query?.category])
+
+  const handlePageChange = (page: number) => {
+    setPage(page)
+    if (router.query.category) {
+      categoryRefetch()
+    } else productRefetch()
+  }
 
   if (isLoading || isRefetching) {
-    return <div>Loading...</div>
+    return (
+      <div className="h-[70vh] flex items-center justify-center w-full">
+        <Loader />
+      </div>
+    )
   }
 
   return (
-    <div>
-      {/* <h4 className="px-4 py-[10px] text-lg font-semibold">All Products</h4> */}
-      <div className="grid grid-cols-4 gap-10">
-        {products && !products[0] ? (
-          <div>No Product Found</div>
-        ) : (
-          products?.map((product) => (
+    <div className="w-full">
+      <h4 className="px-4 py-[10px] text-lg font-semibold capitalize">
+        {!router?.query?.category ? 'All Products' : router?.query?.category}
+      </h4>
+      {products && !products[0] ? (
+        <div className="h-[70vh] flex items-center justify-center w-full text-xl font-bold ">
+          No Product Found
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
+          {products?.map((product) => (
             <ProductCard key={product?.id} product={product} />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
+      <Pagination
+        itemsPerPage={pageLimit}
+        total={total}
+        currentPage={page}
+        onChange={handlePageChange}
+      />
     </div>
   )
 }
