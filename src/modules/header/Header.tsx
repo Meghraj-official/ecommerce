@@ -3,11 +3,13 @@ import BagIcon from '@/components/icons/BagIcon'
 import HeartIcon from '@/components/icons/HeartIcon'
 import SearchIcon from '@/components/icons/SearchIcon'
 import { headerNavigations } from '@/configs/header'
+import { CartContext, CartContextType } from '@/context/CartContext'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 const Header = () => {
+  const { cart } = React.useContext<CartContextType>(CartContext)
   return (
     <nav>
       <Container>
@@ -39,7 +41,14 @@ const Header = () => {
           <div className="flex space-x-4 items-center">
             <SearchIcon />
             <Link href="/cart">
-              <BagIcon />
+              <div className="relative">
+                {cart?.length > 0 && (
+                  <span className="absolute bg-primary-800 text-white -right-1 -top-1 text-xs font-medium h-fit min-w-[16px] min-h-4 grid place-items-center rounded-full">
+                    {cart?.length}
+                  </span>
+                )}
+                <BagIcon />
+              </div>
             </Link>
             <HeartIcon />
             <Image
