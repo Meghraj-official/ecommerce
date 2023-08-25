@@ -18,7 +18,7 @@ const Cart = () => {
     <div>
       <Container>
         <h2 className="text-3xl font-bold">Shopping Bag</h2>
-        {cart?.length !== 0 ? (
+        {cart?.length === 0 ? (
           <div className="h-[70vh] flex flex-col items-center justify-center w-full text-4xl font-bold space-y-6 ">
             <div> Your cart is empty</div>
             <Link href="/">
@@ -40,7 +40,7 @@ const Cart = () => {
               </thead>
               <tbody>
                 {cart?.map((item: CartType) => (
-                  <tr key={item?.id} className="border-b">
+                  <tr key={item?.id} className="border-b min-w-[100px]">
                     <CartCard key={item.id} cartData={item} />
                   </tr>
                 ))}
@@ -49,20 +49,26 @@ const Cart = () => {
             <div className="flex justify-end mt-4">
               <div className="w-1/2">
                 <div className="flex justify-between">
-                  <span className="text-lg font-semibold">Subtotal</span>
-                  <span className="text-lg font-medium text-gray-500">
+                  <span className="text-sm md:text-lg font-semibold">
+                    Subtotal
+                  </span>
+                  <span className="text-sm md:text-lg text-gray-500">
                     ${subTotal}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-lg font-semibold">Shipping</span>
-                  <span className="text-lg font-medium text-gray-500">
+                  <span className="text-sm md:text-lg font-semibold">
+                    Shipping
+                  </span>
+                  <span className="text-sm md:text-lg font-medium text-gray-500">
                     ${shippingCharge}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-lg font-semibold">Total</span>
-                  <span className="text-lg font-medium text-gray-500">
+                  <span className="text-sm md:text-lg font-semibold">
+                    Total
+                  </span>
+                  <span className="text-sm md:text-lg font-medium text-gray-500">
                     ${Number(subTotal) + Number(shippingCharge)}
                   </span>
                 </div>

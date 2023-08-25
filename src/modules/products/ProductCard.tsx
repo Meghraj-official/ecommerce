@@ -84,6 +84,15 @@ const ProductCard = (props: ProductCardProps) => {
         <div className="">${product?.price}</div>
         <Rating rating={product?.rating} />
       </div>
+      <div className="px-4 md:hidden">
+        <button
+          type="button"
+          onClick={handleCart}
+          className="bg-primary-800 text-white w-full rounded-md py-2 "
+        >
+          Add to cart
+        </button>
+      </div>
     </div>
   )
 }

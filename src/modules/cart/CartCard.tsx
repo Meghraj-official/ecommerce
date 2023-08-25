@@ -50,8 +50,8 @@ const CartCard: React.FC<CartCardProps> = (props) => {
 
   return (
     <>
-      <td className="flex space-x-4 w-fit py-2">
-        <div className="relative inline-block h-36 w-28">
+      <td className="flex flex-col md:space-x-4 w-fit py-2">
+        <div className="relative inline-block h-28 w-20 md:h-36 md:w-28">
           <Image
             src={cartData?.thumbnail}
             alt={cartData?.title}
@@ -61,12 +61,16 @@ const CartCard: React.FC<CartCardProps> = (props) => {
         </div>
 
         <div className="flex flex-col w-fit capitalize space-y-1">
-          <span className="font-medium text-lg">{cartData?.title}</span>
-          <span className="text-sm">{cartData?.category}</span>
+          <span className="font-medium text-base md:text-lg line-clamp-2">
+            {cartData?.title}
+          </span>
+          <span className="text-xs md:text-sm">{cartData?.category}</span>
           <Rating rating={cartData?.rating} />
         </div>
       </td>
-      <td className="text-lg text-center font-medium">${cartData?.price}</td>
+      <td className="text-sm md:text-lg text-center font-medium">
+        ${cartData?.price}
+      </td>
       <td className="text-lg font-medium text-center">
         <input
           type="number"
@@ -78,12 +82,12 @@ const CartCard: React.FC<CartCardProps> = (props) => {
         />
         <div className="text-sm font-thin mt-4"> Max: {cartData?.stock}</div>
       </td>
-      <td className="text-lg font-medium text-center space-y-6">
+      <td className="text-sm md:text-lg font-medium text-center space-y-6">
         <div> ${cartData?.price * quantity}</div>
         <button
           type="button"
           onClick={handleRemove}
-          className="border border-red-500 py-1 px-2 rounded-full text-red-500 text-sm"
+          className="border border-red-500 py-1 px-2 rounded-full text-red-500 text-xs md:text-sm"
         >
           Remove{' '}
         </button>

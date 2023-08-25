@@ -51,6 +51,8 @@ const ProductList = () => {
     if (router?.query?.category) {
       categoryRefetch()
       setPage(0)
+    } else {
+      productRefetch()
     }
   }, [categoryRefetch, router?.query?.category])
 

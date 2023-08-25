@@ -14,7 +14,7 @@ export default function Home() {
       </Head>
       <main>
         <Container>
-          <div className="flex space-x-8">
+          <div className="flex flex-col lg:flex-row lg:space-x-8">
             <Filter />
             <ProductList />
           </div>
