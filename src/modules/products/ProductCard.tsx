@@ -84,7 +84,7 @@ const ProductCard = (props: ProductCardProps) => {
         <div className="">${product?.price}</div>
         <Rating rating={product?.rating} />
       </div>
-      <div className="px-4 md:hidden">
+      <div className="px-4 md:hidden mb-2">
         <button
           type="button"
           onClick={handleCart}
