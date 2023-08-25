@@ -1,7 +1,7 @@
 import API from '@/services'
 import { ProductType, ProductsResponseType } from '@/typings/products'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import ProductCard from './ProductCard'
 
@@ -10,7 +10,7 @@ const ProductList = () => {
 
   const [page] = React.useState(1)
 
-  const [products, setProducts] = React.useState<ProductType[] | []>([])
+  const [products, setProducts] = useState<ProductType[] | []>([])
 
   const { isLoading } = useQuery(
     'products',
