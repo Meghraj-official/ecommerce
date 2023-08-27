@@ -40,7 +40,7 @@ const Cart = () => {
               </thead>
               <tbody>
                 {cart?.map((item: CartType) => (
-                  <tr key={item?.id} className="border-b min-w-[100px]">
+                  <tr key={item?.id} className="border-b">
                     <CartCard key={item.id} cartData={item} />
                   </tr>
                 ))}

@@ -1,5 +1,5 @@
 import { CartType } from '@/typings/cart'
-import { getCartFromLocal } from '@/utils/cartLocalstorage'
+import { getCartFromLocal } from '@/utils/cartLocalStorage'
 import React, { useEffect, useState } from 'react'
 
 export interface CartContextType {
