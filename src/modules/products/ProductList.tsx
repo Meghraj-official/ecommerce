@@ -16,7 +16,11 @@ const ProductList = () => {
 
   const [products, setProducts] = useState<ProductType[] | []>([])
 
-  const { isLoading, refetch: productRefetch } = useQuery(
+  const {
+    isLoading: productLoading,
+    refetch: productRefetch,
+    isRefetching: productRefetching
+  } = useQuery(
     ['products', page],
     () =>
       API.products.getAllProducts({
@@ -30,7 +34,11 @@ const ProductList = () => {
       }
     }
   )
-  const { refetch: categoryRefetch, isRefetching } = useQuery(
+  const {
+    refetch: categoryRefetch,
+    isRefetching: categoryRefetching,
+    isLoading: categoryLoading
+  } = useQuery(
     ['productsByCategory', page, router.query.category],
     () =>
       API.products.getAllProductsByCategory({
@@ -54,16 +62,22 @@ const ProductList = () => {
     } else {
       productRefetch()
     }
-  }, [categoryRefetch, router?.query?.category])
+  }, [router?.query?.category])
 
   const handlePageChange = (page: number) => {
     setPage(page)
     if (router.query.category) {
       categoryRefetch()
     } else productRefetch()
+    scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  if (isLoading || isRefetching) {
+  if (
+    productLoading ||
+    categoryRefetching ||
+    categoryLoading ||
+    productRefetching
+  ) {
     return (
       <div className="h-[70vh] flex items-center justify-center w-full">
         <Loader />

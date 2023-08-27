@@ -32,15 +32,14 @@ const Pagination = (props: PaginationProps) => {
       nextLabel={'Next'}
       breakLabel={'...'}
       forcePage={currentPage}
-      breakClassName="space-x-2"
       pageCount={Math.ceil(total / itemsPerPage)}
       marginPagesDisplayed={2}
-      nextLinkClassName="text-primary-800 font-medium ml-10"
-      previousClassName="text-primary-800 font-medium mr-10"
+      nextLinkClassName="text-primary-800 font-medium ml-4 md:ml-10"
+      previousClassName="text-primary-800 font-medium mr-4 md:mr-10"
       pageRangeDisplayed={5}
-      pageClassName="font-medium px-4"
+      pageClassName="font-medium px-2 md:px-4"
       onPageChange={handlePageChange}
-      containerClassName="flex space-x-2 lg:justify-center items-center mt-10 flex-wrap"
+      containerClassName="flex md:space-x-2 lg:justify-center items-center mt-10 flex-wrap"
       activeClassName="bg-primary-800 focus:outline-none !text-white h-8 w-8 text-center rounded-full flex items-center justify-center"
     />
   )

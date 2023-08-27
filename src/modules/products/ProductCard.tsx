@@ -3,11 +3,11 @@ import BagIcon from '@/components/icons/BagIcon'
 import Image from 'next/image'
 import { ProductType } from '@/typings/products'
 import HeartIcon from '@/components/icons/HeartIcon'
-import { addCartToLocal } from '@/utils/cartLocalstorage'
 import Rating from '@/components/common/Rating'
 import { CartType } from '@/typings/cart'
 import { CartContext, CartContextType } from '@/context/CartContext'
 import { toast } from 'react-toastify'
+import { addCartToLocal } from '@/utils/cartLocalStorage'
 
 interface ProductCardProps {
   product: ProductType
@@ -22,6 +22,7 @@ const ProductCard = (props: ProductCardProps) => {
     setIsHover(!isHover)
   }
 
+  // Handles the add to cart button
   const handleCart = () => {
     const cartData = {
       ...product,
