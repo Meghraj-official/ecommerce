@@ -17,25 +17,21 @@ const findCartItemIndex = (cart: CartType[], id: number | undefined) => {
 
 const CartCard: React.FC<CartCardProps> = (props) => {
   const { cartData } = props
-  const [quantity, setQuantity] = React.useState(cartData?.quantity)
+  const [quantity, setQuantity] = React.useState(cartData?.quantity.toString())
   const { cart, setCart } = useContext<CartContextType>(CartContext)
 
   // Handles the quantity input
   const handleQuantity = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.valueAsNumber > cartData?.stock) {
-      return
-    }
-    if (event.target.value === '') {
-      setQuantity(event.target.valueAsNumber)
+    if (Number(event.target.value) > cartData?.stock) {
       return
     }
 
-    setQuantity(event.target.valueAsNumber)
+    setQuantity(event.target.value)
     const tempCart = [...cart]
     if (tempCart && tempCart.length > 0) {
       const index = findCartItemIndex(tempCart, cartData?.id)
       if (index !== -1) {
-        tempCart[index].quantity = event.target.valueAsNumber
+        tempCart[index].quantity = Number(event.target.value)
       }
     }
     addCartToLocal(tempCart)
@@ -44,10 +40,10 @@ const CartCard: React.FC<CartCardProps> = (props) => {
 
   // Handles the plus and minus button
   const handleQuantityChange = (change: number) => {
-    const newQuantity = quantity + change
+    const newQuantity = Number(quantity) + change
     const tempCart = [...cart]
     if (newQuantity >= 1 && newQuantity <= cartData?.stock) {
-      setQuantity(newQuantity)
+      setQuantity(newQuantity.toString())
       const index = findCartItemIndex(cart, cartData?.id)
       if (index !== -1) {
         tempCart[index].quantity = newQuantity
@@ -123,7 +119,7 @@ const CartCard: React.FC<CartCardProps> = (props) => {
         <div className="text-sm font-thin mt-4"> Max: {cartData?.stock}</div>
       </td>
       <td className="text-sm md:text-lg font-medium text-center space-y-6">
-        <div> ${quantity ? cartData?.price * quantity : 0}</div>
+        <div> ${quantity ? cartData?.price * Number(quantity) : 0}</div>
         <button
           type="button"
           onClick={handleRemove}
