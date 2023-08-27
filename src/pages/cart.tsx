@@ -53,7 +53,7 @@ const Cart = () => {
                     Subtotal
                   </span>
                   <span className="text-sm md:text-lg text-gray-500">
-                    ${subTotal}
+                    ${subTotal.toFixed(2)}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -69,7 +69,7 @@ const Cart = () => {
                     Total
                   </span>
                   <span className="text-sm md:text-lg font-medium text-gray-500">
-                    ${Number(subTotal) + Number(shippingCharge)}
+                    ${(Number(subTotal) + Number(shippingCharge)).toFixed(2)}
                   </span>
                 </div>
                 <div className="flex justify-end mt-4">
